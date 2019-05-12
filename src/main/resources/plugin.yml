@@ -1,0 +1,7 @@
+name: HeroDungeons
+version: ${project.version}
+main: com.heroslender.herodungeons.HeroDungeons
+api-version: 1.13
+authors: [Heroslender]
+description: A complete dungeons plugin for spigot
+website: https://github.com/heroslender/HeroDungeons/
