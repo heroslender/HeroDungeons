@@ -1,13 +1,13 @@
 package com.heroslender.herodungeons.portal;
 
 import com.heroslender.herodungeons.portal.exceptions.PortalAlreadyBuildedException;
+import com.heroslender.herodungeons.portal.exceptions.PortalException;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.material.MaterialData;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
 
 public class PortalImpl implements Portal {
     private final String name;
@@ -46,7 +46,7 @@ public class PortalImpl implements Portal {
     }
 
     @Override
-    public void build(Consumer<Void> done) throws PortalAlreadyBuildedException {
+    public void build(Runnable done) throws PortalAlreadyBuildedException {
         if (isOpen()) {
             throw new PortalAlreadyBuildedException();
         }
@@ -54,18 +54,18 @@ public class PortalImpl implements Portal {
 
         // TODO - Build portal
 
-        done.accept(null);
+        done.run();
     }
 
     @Override
-    public void buildPortal(Consumer<Void> done) throws PortalAlreadyBuildedException {
-        if (isOpen()) {
-            throw new PortalAlreadyBuildedException();
+    public void buildPortal(Runnable done) throws PortalException {
+        if (!isOpen()) {
+            throw new PortalException("Portal must be open.");
         }
         open = true;
 
         // TODO - Build portal
+        done.run();
 
-        done.accept(null);
     }
 }

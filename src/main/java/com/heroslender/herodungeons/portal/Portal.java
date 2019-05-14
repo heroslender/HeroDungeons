@@ -1,11 +1,11 @@
 package com.heroslender.herodungeons.portal;
 
 import com.heroslender.herodungeons.portal.exceptions.PortalAlreadyBuildedException;
+import com.heroslender.herodungeons.portal.exceptions.PortalException;
 import org.bukkit.block.Block;
 import org.bukkit.material.MaterialData;
 
 import java.util.Map;
-import java.util.function.Consumer;
 
 public interface Portal {
 
@@ -44,12 +44,12 @@ public interface Portal {
      *
      * @param done Callback called when the portal has finished building.
      */
-    void build(Consumer<Void> done) throws PortalAlreadyBuildedException;
+    void build(Runnable done) throws PortalAlreadyBuildedException;
 
     /**
      * Build the portal part where players pass throw to enter.
      *
      * @param done Callback called when the portal has finished building.
      */
-    void buildPortal(Consumer<Void> done) throws PortalAlreadyBuildedException;
+    void buildPortal(Runnable done) throws PortalException;
 }
