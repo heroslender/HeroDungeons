@@ -1,5 +1,7 @@
 package com.heroslender.herodungeons.portal;
 
+import com.heroslender.herodungeons.portal.builder.PortalBuilder;
+import com.heroslender.herodungeons.portal.builder.PortalBuilderRandom;
 import com.heroslender.herodungeons.portal.exceptions.PortalAlreadyBuildedException;
 import com.heroslender.herodungeons.portal.exceptions.PortalException;
 import org.bukkit.Location;
@@ -16,6 +18,9 @@ public class PortalImpl implements Portal {
     private final Map<Block, MaterialData> portalBlocks;
     private final Map<Block, MaterialData> oldBlocks = new HashMap<>();
 
+    private final PortalBuilder portalBuilder;
+    private final PortalBuilder portalPassthrowBuilder;
+
     private boolean open = false;
 
     public PortalImpl(String name, Location location, Map<Block, MaterialData> blocks, Map<Block, MaterialData> portalBlocks) {
@@ -23,6 +28,8 @@ public class PortalImpl implements Portal {
         this.location = location;
         this.blocks = blocks;
         this.portalBlocks = portalBlocks;
+        this.portalBuilder = new PortalBuilderRandom(blocks);
+        this.portalPassthrowBuilder = new PortalBuilderRandom(portalBlocks);
     }
 
     @Override
@@ -52,7 +59,7 @@ public class PortalImpl implements Portal {
         }
         open = true;
 
-        // TODO - Build portal
+        portalBuilder.build(null, null);
 
         done.run();
     }
@@ -64,8 +71,8 @@ public class PortalImpl implements Portal {
         }
         open = true;
 
-        // TODO - Build portal
-        done.run();
+        portalPassthrowBuilder.build(null, null);
 
+        done.run();
     }
 }
